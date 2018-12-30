@@ -16,7 +16,7 @@ export class ManageCoursePage extends React.Component {
       //saving: false
     };
 
-    //this.updateCourseState = this.updateCourseState.bind(this);
+    this.updateCourseState = this.updateCourseState.bind(this);
     //this.saveCourse = this.saveCourse.bind(this);
   }
 
@@ -27,12 +27,12 @@ export class ManageCoursePage extends React.Component {
 //     }
 //   }
 
-//   updateCourseState(event) {
-//     const field = event.target.name;
-//     let course = Object.assign({}, this.state.course);
-//     course[field] = event.target.value;
-//     return this.setState({course: course});
-//   }
+  updateCourseState(event) {
+    const field = event.target.name;
+    let course = Object.assign({}, this.state.course);
+    course[field] = event.target.value;
+    return this.setState({course: course});
+  }
 
 //   courseFormIsValid() {
 //     let formIsValid = true;
@@ -48,22 +48,23 @@ export class ManageCoursePage extends React.Component {
 //   }
 
 
-//   saveCourse(event) {
-//     event.preventDefault();
+  saveCourse(event) {
+    event.preventDefault();
+    this.props.actions.saveCourse(this.state.course);
 
-//     if (!this.courseFormIsValid()) {
-//       return;
-//     }
+    // if (!this.courseFormIsValid()) {
+    //   return;
+    // }
 
-//     this.setState({saving: true});
+    // this.setState({saving: true});
 
-//     this.props.actions.saveCourse(this.state.course)
-//       .then(() => this.redirect())
-//       .catch(error => {
-//         toastr.error(error);
-//         this.setState({saving: false});
-//       });
-//   }
+    // this.props.actions.saveCourse(this.state.course)
+    //   .then(() => this.redirect())
+    //   .catch(error => {
+    //     toastr.error(error);
+    //     this.setState({saving: false});
+    //   });
+  }
 
 //   redirect() {
 //     this.setState({saving: false});
@@ -84,7 +85,8 @@ export class ManageCoursePage extends React.Component {
     // );
     return (
         <CourseForm
-          allAuthors={[]}
+          allAuthors={this.props.authors}
+          onChange={this.updateCourseState}
           course={this.state.course}
           errors={this.state.errors}
         />
@@ -93,9 +95,9 @@ export class ManageCoursePage extends React.Component {
 }
 
 ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired//,
-  // authors: PropTypes.array.isRequired,
-  // actions: PropTypes.object.isRequired
+  course: PropTypes.object.isRequired,
+  authors: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 // //Pull in the React Router context so router is available on this.context.router.
@@ -109,6 +111,7 @@ ManageCoursePage.propTypes = {
 //   return null;
 // }
 
+// transform
 function mapStateToProps(state, ownProps) {
   // const courseId = ownProps.params.id; // from the path `/course/:id`
 
@@ -124,7 +127,14 @@ function mapStateToProps(state, ownProps) {
   // };
 
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
-  return { course };
+  return {course};
+  // const authorsFormattedForDropdown = state.authors.map(author => {
+  //   return {
+  //     value: author.id,
+  //     text: author.firstName + ' ' + author.lastName
+  //   };
+  // });
+  // return { course, authors: authorsFormattedForDropdown };
 }
 
 function mapDispatchToProps(dispatch) {
