@@ -51,6 +51,7 @@ export class ManageCoursePage extends React.Component {
   saveCourse(event) {
     event.preventDefault();
     this.props.actions.saveCourse(this.state.course);
+    this.context.router.push('/courses'); // context
 
     // if (!this.courseFormIsValid()) {
     //   return;
@@ -100,41 +101,39 @@ ManageCoursePage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-// //Pull in the React Router context so router is available on this.context.router.
-// ManageCoursePage.contextTypes = {
-//   router: PropTypes.object
-// };
+//Pull in the React Router context so router is available on this.context.router.
+ManageCoursePage.contextTypes = {
+  router: PropTypes.object
+};
 
-// function getCourseById(courses, id) {
-//   const course = courses.filter(course => course.id == id);
-//   if (course) return course[0]; //since filter returns an array, have to grab the first.
-//   return null;
-// }
+function getCourseById(courses, id) {
+  const course = courses.filter(course => course.id == id);
+  if (course) return course[0]; //since filter returns an array, have to grab the first.
+  return null;
+}
 
 // transform
 function mapStateToProps(state, ownProps) {
-  // const courseId = ownProps.params.id; // from the path `/course/:id`
-
-  // let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
-
-  // if (courseId && state.courses.length > 0) {
-  //   course = getCourseById(state.courses, courseId);
-  // }
-
-  // return {
-  //   course: course,
-  //   authors: authorsFormattedForDropdown(state.authors)
-  // };
+  const courseId = ownProps.params.id; // from the path `/course/:id`
 
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
-  return {course};
-  // const authorsFormattedForDropdown = state.authors.map(author => {
-  //   return {
-  //     value: author.id,
-  //     text: author.firstName + ' ' + author.lastName
-  //   };
-  // });
-  // return { course, authors: authorsFormattedForDropdown };
+
+  if (courseId && state.courses.length > 0) {
+    course = getCourseById(state.courses, courseId);
+  }
+
+  const authorsFormattedForDropdown = state.authors.map(author => {
+    return {
+      value: author.id,
+      text: author.firstName + ' ' + author.lastName
+    };
+  });
+
+  return {
+    course: course//,
+    //authors: authorsFormattedForDropdown(state.authors)
+  };
+
 }
 
 function mapDispatchToProps(dispatch) {
