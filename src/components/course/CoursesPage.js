@@ -7,6 +7,7 @@ class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // init state
     this.state = {
       course: { title: "null" }
     };
