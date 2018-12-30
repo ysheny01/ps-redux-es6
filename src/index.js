@@ -1,4 +1,3 @@
-/*eslint-disable import/default*/
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
@@ -9,7 +8,13 @@ import routes from './routes';
 import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-const store = configureStore();
+// render(
+//   <Router history={browserHistory} routes={routes} />,
+//   document.getElementById('app')
+// );
+
+// boilerplate code, store and provider
+const store = configureStore(); // no init state
 
 render(
   <Provider store={store}>
