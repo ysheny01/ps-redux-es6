@@ -1,1 +1,2 @@
-export default 0;
+// simulate delay
+export default 1000;
