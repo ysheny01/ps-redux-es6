@@ -82,3 +82,10 @@ This will run the automated build process, start up a webserver, and open the ap
 |webpack| Bundler with plugin system and integrated development server |
 |webpack-dev-middleware| Adds middleware support to webpack |
 |webpack-hot-middleware| Adds hot reloading to webpack |
+
+To learn 12/30/18:
+dispatch in redux
+destructuring in JS
+import *
+
+

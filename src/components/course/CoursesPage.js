@@ -46,7 +46,7 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
   // dispatch: PropTypes.func.isRequired,
-  //courses: PropTypes.array.isRequried,
+  courses: PropTypes.array.isRequried,
   actions: PropTypes.object.isRequired
   //createCourse: PropTypes.func.isRequired
 };
